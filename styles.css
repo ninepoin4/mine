@@ -25,11 +25,61 @@ html {
 
 body {
     font-family: var(--body-font);
-    background-color: var(--background-color);
+    background: linear-gradient(135deg, #0f1a2b 0%, #0a0e17 50%, #12071f 100%);
     color: var(--text-color);
     line-height: 1.6;
     overflow-x: hidden;
     position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(0, 60, 120, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(125, 0, 255, 0.05) 0%, transparent 50%);
+    z-index: -2;
+    pointer-events: none;
+}
+
+/* 添加更现代的科技感纹理 */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(90deg, rgba(0, 240, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 1px),
+        radial-gradient(circle at 50% 50%, rgba(125, 0, 255, 0.05) 0%, transparent 25%),
+        radial-gradient(circle at 80% 20%, rgba(0, 240, 255, 0.03) 0%, transparent 35%);
+    background-size: 40px 40px, 40px 40px, 600px 600px, 800px 800px;
+    background-position: center center;
+    opacity: 0.6;
+    z-index: -3;
+    pointer-events: none;
+    animation: backgroundPulse 15s ease infinite alternate;
+}
+
+@keyframes backgroundPulse {
+    0% {
+        background-position: center center;
+        opacity: 0.4;
+    }
+    50% {
+        background-position: center 10px;
+        opacity: 0.6;
+    }
+    100% {
+        background-position: 10px center;
+        opacity: 0.5;
+    }
 }
 
 a {
@@ -55,27 +105,55 @@ ul {
 }
 
 /* Background Animation */
-.stars, .twinkling {
+.stars {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    background: url('https://i.imgur.com/YKY28eT.png') repeat top center;
+    opacity: 0.5;
     z-index: -1;
 }
 
-.stars {
-    background: #000 url('https://i.imgur.com/YKY28eT.png') repeat top center;
+/* 背景光晕效果 */
+.glow-effect-1 {
+    content: '';
+    position: fixed;
+    top: 30%;
+    left: -10%;
+    width: 40%;
+    height: 40%;
+    background: radial-gradient(circle, rgba(255, 0, 230, 0.1) 0%, rgba(255, 0, 230, 0) 70%);
+    z-index: -3;
+    animation: pulse 15s ease-in-out infinite alternate;
 }
 
-.twinkling {
-    background: transparent url('https://i.imgur.com/XYMF4ca.png') repeat top center;
-    animation: move-twink-back 200s linear infinite;
+.glow-effect-2 {
+    content: '';
+    position: fixed;
+    bottom: 10%;
+    right: -10%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(0, 240, 255, 0.1) 0%, rgba(0, 240, 255, 0) 70%);
+    z-index: -3;
+    animation: pulse 20s ease-in-out infinite alternate-reverse;
 }
 
-@keyframes move-twink-back {
-    from {background-position: 0 0;}
-    to {background-position: -10000px 5000px;}
+@keyframes pulse {
+    0% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.2);
+    }
+    100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
 }
 
 /* Header Styles */
@@ -98,6 +176,9 @@ header {
     flex-direction: column;
     align-items: flex-start;
     padding-left: 20px;
+    margin-left: 0;
+    position: relative;
+    left: 0;
 }
 
 .neon-text {
@@ -113,6 +194,10 @@ header {
     font-size: 1rem;
     color: var(--secondary-color);
     margin-top: -5px;
+}
+
+nav {
+    margin-left: auto;
 }
 
 nav ul {
@@ -177,6 +262,7 @@ nav ul {
     padding: 0 20px;
 }
 
+/* 新的主标题动画效果 */
 .glitch {
     font-family: var(--heading-font);
     font-size: 8rem;
@@ -184,7 +270,6 @@ nav ul {
     color: var(--primary-color);
     text-shadow: var(--glow-effect);
     position: relative;
-    animation: glitch 2s infinite;
     width: 100%;
     text-align: center;
     margin: 0 auto;
@@ -192,6 +277,38 @@ nav ul {
     left: 0;
     right: 0;
     transform: none;
+    opacity: 0;
+    animation: titleReveal 2s forwards, titleGlow 5s 2s infinite alternate;
+}
+
+@keyframes titleReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(30px);
+        filter: blur(10px);
+        letter-spacing: 20px;
+    }
+    60% {
+        opacity: 0.8;
+        filter: blur(0px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        letter-spacing: normal;
+    }
+}
+
+@keyframes titleGlow {
+    0% {
+        text-shadow: 0 0 10px rgba(0, 240, 255, 0.7), 0 0 20px rgba(0, 240, 255, 0.5);
+    }
+    50% {
+        text-shadow: 0 0 15px rgba(0, 240, 255, 0.9), 0 0 30px rgba(0, 240, 255, 0.7), 0 0 40px rgba(0, 240, 255, 0.5);
+    }
+    100% {
+        text-shadow: 0 0 10px rgba(0, 240, 255, 0.7), 0 0 20px rgba(0, 240, 255, 0.5);
+    }
 }
 
 .glitch::before,
@@ -203,20 +320,31 @@ nav ul {
     width: 100%;
     height: 100%;
     text-align: center;
+    opacity: 0;
+    animation: glitchReveal 2s 1.5s forwards;
+}
+
+@keyframes glitchReveal {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .glitch::before {
     left: 0;
     text-shadow: -2px 0 var(--secondary-color);
     clip: rect(44px, 9999px, 56px, 0);
-    animation: glitch-anim 5s infinite linear alternate-reverse;
+    animation: glitchReveal 2s 1.5s forwards, glitch-anim 5s 2s infinite linear alternate-reverse;
 }
 
 .glitch::after {
     left: 0;
     text-shadow: -2px 0 var(--accent-color);
     clip: rect(44px, 9999px, 56px, 0);
-    animation: glitch-anim2 5s infinite linear alternate-reverse;
+    animation: glitchReveal 2s 1.5s forwards, glitch-anim2 5s 2s infinite linear alternate-reverse;
 }
 
 @keyframes glitch-anim {
@@ -295,7 +423,19 @@ nav ul {
     font-size: 1.5rem;
     margin: 20px 0 40px;
     color: var(--text-color);
-    opacity: 0.8;
+    opacity: 0;
+    animation: fadeIn 1s 2.5s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 0.8;
+        transform: translateY(0);
+    }
 }
 
 .btn {
@@ -310,6 +450,8 @@ nav ul {
     position: relative;
     overflow: hidden;
     z-index: 1;
+    opacity: 0;
+    animation: fadeIn 1s 3s forwards;
 }
 
 .btn::before {
@@ -459,11 +601,30 @@ section {
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid rgba(0, 240, 255, 0.1);
+    position: relative;
+    overflow: hidden;
 }
 
 .interest-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 10px 20px rgba(0, 240, 255, 0.2);
+}
+
+.interest-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 240, 255, 0.1) 0%, rgba(0, 240, 255, 0) 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: -1;
+}
+
+.interest-card:hover::before {
+    opacity: 1;
 }
 
 .interest-icon {
@@ -537,6 +698,25 @@ section {
     overflow: hidden;
     max-width: 800px;
     margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.media-image::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 240, 255, 0.1) 0%, rgba(0, 240, 255, 0) 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: -1;
+}
+
+.media-image:hover::before {
+    opacity: 1;
 }
 
 .hover-image {
@@ -599,11 +779,30 @@ section {
     min-width: 300px;
     border: 1px solid rgba(0, 240, 255, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .contact-method:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 240, 255, 0.2);
+}
+
+.contact-method::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 240, 255, 0.1) 0%, rgba(0, 240, 255, 0) 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: -1;
+}
+
+.contact-method:hover::before {
+    opacity: 1;
 }
 
 .contact-method i {
@@ -664,11 +863,21 @@ footer {
     header {
         flex-direction: column;
         padding: 15px 0;
+        padding-top: 60px;
+    }
+    
+    .logo {
+        position: absolute;
+        top: 15px;
+        left: 20px;
     }
     
     nav ul {
         margin-top: 15px;
         gap: 15px;
+        width: 100%;
+        justify-content: center;
+        padding-right: 0;
     }
     
     .glitch {
